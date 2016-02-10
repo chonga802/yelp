@@ -43,7 +43,7 @@
                                                         <constraint firstAttribute="height" constant="15" id="nj0-Nk-Rfb"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="469 Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="izf-F0-sDz">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="469 Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="izf-F0-sDz">
                                                     <rect key="frame" x="176" y="40" width="99" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -106,6 +106,7 @@
                                                 <constraint firstItem="ULm-2F-PvQ" firstAttribute="top" secondItem="A2G-sv-m71" secondAttribute="topMargin" constant="7" id="h6M-hT-yv5"/>
                                                 <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="ULm-2F-PvQ" secondAttribute="bottom" constant="12" id="ix6-I4-UIB"/>
                                                 <constraint firstItem="0je-yf-Gbl" firstAttribute="top" secondItem="izf-F0-sDz" secondAttribute="bottom" constant="20" id="pZu-Nd-JpR"/>
+                                                <constraint firstItem="izf-F0-sDz" firstAttribute="leading" secondItem="qXL-Qz-IRx" secondAttribute="trailing" constant="10" id="qqM-r8-KIQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -164,13 +165,13 @@
                                         <rect key="frame" x="0.0" y="92" width="320" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xmq-Az-WgU" id="BhU-tU-0sv">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="76.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JoN-Ag-fhq">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JoN-Ag-fhq">
                                                     <rect key="frame" x="250" y="23" width="51" height="31"/>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNP-pP-Rzt">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNP-pP-Rzt">
                                                     <rect key="frame" x="25" y="28" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -179,6 +180,9 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="uNP-pP-Rzt" firstAttribute="leading" secondItem="BhU-tU-0sv" secondAttribute="leadingMargin" constant="13" id="5OS-sd-1xQ"/>
+                                                <constraint firstItem="uNP-pP-Rzt" firstAttribute="centerY" secondItem="JoN-Ag-fhq" secondAttribute="centerY" id="7kQ-zI-7HV"/>
+                                                <constraint firstItem="uNP-pP-Rzt" firstAttribute="top" secondItem="BhU-tU-0sv" secondAttribute="topMargin" constant="20" id="k35-5W-msD"/>
+                                                <constraint firstItem="uNP-pP-Rzt" firstAttribute="centerY" secondItem="BhU-tU-0sv" secondAttribute="centerY" id="l0o-tX-wNt"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="JoN-Ag-fhq" secondAttribute="trailing" constant="13" id="t8m-Mc-GC3"/>
                                             </constraints>
                                         </tableViewCellContentView>
