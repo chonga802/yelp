@@ -16,6 +16,8 @@
 		22AAAA991AEA0A9700A544AF /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AAAA981AEA0A9700A544AF /* Business.swift */; };
 		22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AAAA9B1AEA1EC300A544AF /* BusinessesViewController.swift */; };
 		90B718C590BD546DEFEF0D61 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3C5CF4FD317D72ABE2AAC4 /* Pods.framework */; };
+		F5C401001C71010A00763D21 /* SortCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C400FF1C71010A00763D21 /* SortCell.swift */; };
+		F5C401021C71012700763D21 /* DistanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C401011C71012700763D21 /* DistanceCell.swift */; };
 		F5C52F9F1C6B21B1009017F6 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C52F9E1C6B21B1009017F6 /* SwitchCell.swift */; };
 		F5C52FA11C6B230F009017F6 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C52FA01C6B230F009017F6 /* FiltersViewController.swift */; };
 		F5D2EDED1C6A4E7800C735D2 /* BusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D2EDEC1C6A4E7800C735D2 /* BusinessCell.swift */; };
@@ -47,6 +49,8 @@
 		97D8B2E3FFD1AF4F4A707E47 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AA3C5CF4FD317D72ABE2AAC4 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD540129B10DFE60E8C24E2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F5C400FF1C71010A00763D21 /* SortCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortCell.swift; sourceTree = "<group>"; };
+		F5C401011C71012700763D21 /* DistanceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistanceCell.swift; sourceTree = "<group>"; };
 		F5C52F9E1C6B21B1009017F6 /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
 		F5C52FA01C6B230F009017F6 /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		F5D2EDEC1C6A4E7800C735D2 /* BusinessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessCell.swift; sourceTree = "<group>"; };
@@ -179,6 +183,8 @@
 			children = (
 				F5D2EDEC1C6A4E7800C735D2 /* BusinessCell.swift */,
 				F5C52F9E1C6B21B1009017F6 /* SwitchCell.swift */,
+				F5C400FF1C71010A00763D21 /* SortCell.swift */,
+				F5C401011C71012700763D21 /* DistanceCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -337,7 +343,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5D2EDED1C6A4E7800C735D2 /* BusinessCell.swift in Sources */,
+				F5C401001C71010A00763D21 /* SortCell.swift in Sources */,
 				22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */,
+				F5C401021C71012700763D21 /* DistanceCell.swift in Sources */,
 				F5C52FA11C6B230F009017F6 /* FiltersViewController.swift in Sources */,
 				22AAAA991AEA0A9700A544AF /* Business.swift in Sources */,
 				222D8A7D19CCFAE000D2DB53 /* YelpClient.swift in Sources */,

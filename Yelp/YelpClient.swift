@@ -2,8 +2,8 @@
 //  YelpClient.swift
 //  Yelp
 //
-//  Created by Timothy Lee on 9/19/14.
-//  Copyright (c) 2014 Timothy Lee. All rights reserved.
+//  Created by Christine Hong on 9/19/14.
+//  Copyright (c) 2014 Christine Hong. All rights reserved.
 //
 
 import UIKit
@@ -57,7 +57,7 @@ class YelpClient: BDBOAuth1RequestOperationManager {
     
     func searchWithTerm(term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
         // For additional parameters, see http://www.yelp.com/developers/documentation/v2/search_api
-
+        print("SEARCH API")
         // Default the location to San Francisco
         var parameters: [String : AnyObject] = ["term": term, "ll": "37.785771,-122.406165"]
 

@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Yelp-->
+        <!--Businesses View Controller-->
         <scene sceneID="5L9-Uz-lNK">
             <objects>
                 <viewController id="2xI-yr-O5N" customClass="BusinessesViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
@@ -130,7 +130,7 @@
                             <constraint firstItem="6E3-bp-wUG" firstAttribute="top" secondItem="XhR-oz-92f" secondAttribute="top" id="uIF-U9-1vx"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Yelp" id="2Xw-KL-F4D">
+                    <navigationItem key="navigationItem" id="2Xw-KL-F4D">
                         <barButtonItem key="leftBarButtonItem" title="Filters" id="xfi-wF-KZX">
                             <connections>
                                 <segue destination="tJH-c6-Le2" kind="modal" id="4kF-gE-ABq"/>
@@ -165,7 +165,7 @@
                                         <rect key="frame" x="0.0" y="92" width="320" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xmq-Az-WgU" id="BhU-tU-0sv">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="76.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JoN-Ag-fhq">
