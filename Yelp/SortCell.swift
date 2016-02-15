@@ -3,7 +3,7 @@
 //  Yelp
 //
 //  Created by Christine Hong on 2/14/16.
-//  Copyright © 2016 Timothy Lee. All rights reserved.
+//  Copyright © 2016 Christine Hong. All rights reserved.
 //
 
 import UIKit
@@ -15,7 +15,6 @@ import UIKit
 class SortCell: UITableViewCell {
     
     weak var delegate: SortCellDelegate?
-    @IBOutlet weak var sortImageView: UIImageView!
     @IBOutlet weak var sortLabel: UILabel!
     
     override func awakeFromNib() {

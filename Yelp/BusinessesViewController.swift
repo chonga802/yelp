@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import AFNetworking
 import MBProgressHUD
 
 class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FiltersViewControllerDelegate, UISearchBarDelegate {
@@ -24,8 +23,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.estimatedRowHeight = 400
-        // tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120
         
         searchBar.delegate = self
         searchBar.placeholder = "Restaurants"
@@ -33,11 +32,11 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         navigationItem.titleView = searchBar
         
         self.filteredBusinesses = self.businesses
-        doSearch()
+        getRestaurants()
     }
     
-    private func doSearch() {
-        print("do search")
+    private func getRestaurants() {
+        print("get restaurants")
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         
         Business.searchWithTerm("Restaurants", completion: { (businesses: [Business]!, error: NSError!) -> Void in
@@ -98,7 +97,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
         searchBar.text = ""
-        doSearch()
+        getRestaurants()
         searchBar.resignFirstResponder()
         self.view.endEditing(true)
     }

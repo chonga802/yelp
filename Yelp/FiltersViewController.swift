@@ -18,29 +18,42 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     weak var delegate: FiltersViewControllerDelegate?
     
-    var filterTypes: [AnyObject] = []
+    var filters : [String : AnyObject]!
+    
     var dealOnly: Bool = false
-    var distance: [String] = []
-    var sortBy: [String] = []
+    var distance: [String] = ["Auto", "0.3 miles", "1 mile", "5 miles", "20 miles"]
+    var sortBy: [String] = ["Best Match", "Distance", "Rating"]
     var categories: [[String:String]]!
     
-    var switchStates = [Int:Bool]()
+    var switchStates : [Int : Bool]!
+    var selectedCategories : [String]!
     var selectedDistance: String = "Auto"
     var selectedSortby: String = "Best Match"
+    var distanceExpand: Bool = false
+    var sortbyExpand: Bool = false
     
     override func viewDidLoad() {
         print("FILTERS VIEW CONTROLLER LOADING")
         super.viewDidLoad()
         
-        dealOnly = false
-        distance = ["Auto", "0.3 miles", "1 mile", "5 miles", "20 miles"]
-        sortBy = ["Best Match", "Distance", "Rating"]
+        tableView.estimatedRowHeight = 50
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        switchStates = [Int:Bool]()
         categories = yelpCategories()
         
-        filterTypes.append(dealOnly)
-        filterTypes.append(distance)
-        filterTypes.append(sortBy)
-        filterTypes.append(categories)
+        // Get previous filter settings
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if (defaults.objectForKey("filters") != nil){
+            filters = defaults.objectForKey("filters") as! [String: AnyObject]
+            print(filters)
+            dealOnly = filters["dealonly"] as! Bool
+            selectedDistance = filters["distance"] as! String
+            selectedSortby = filters["sortby"] as! String
+            if filters["categories"] != nil {
+                selectedCategories = filters["categories"] as! [String]
+            }
+        }
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -60,7 +73,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     // action connected to Search button in Filters
     @IBAction func onSearchButton(sender: AnyObject) {
         print("Pressed search button")
-        var filters = [String : AnyObject]()
+        filters = [String:AnyObject]()
 
         filters["dealonly"] = dealOnly
         
@@ -80,6 +93,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         print("filters:")
         print(filters)
+        
+        // save filter settings
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(filters, forKey: "filters" )
+        defaults.synchronize()
+        
         delegate?.filtersViewController?(self, didUpdateFilters: filters)
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -87,6 +106,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     // MARK: - UITableViewDelegate
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        print("table titleForHeaderInSection")
         if section == 1 {
             return "Distance"
         } else if section == 2 {
@@ -98,19 +118,44 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int{
+        print("table numberOfSectionsInTableView")
         return 4
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let filter = filterTypes[section] //e.g. categories
-        if let numRows = filter.count {
-            return numRows
-        } else {
+        print("table numberOfRowsInSection")
+        var numRows : Int?
+        if section == 0 {
             return 1
+        } else if section == 1 {
+            print("distanceExpand:")
+            print(distanceExpand)
+            if (distanceExpand) {
+                return 1
+            } else {
+                numRows = distance.count
+            }
+        } else if section == 2 {
+            print("sortbyExpand:")
+            print(sortbyExpand)
+            if (sortbyExpand) {
+                return 1
+            } else {
+                numRows = sortBy.count
+            }
+        } else if section == 3 {
+            numRows = categories.count
+        }
+        
+        if (numRows != nil) {
+            return numRows!
+        } else {
+            return 0
         }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        print("table cellForRowAtIndexPath")
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("DealCell", forIndexPath: indexPath) as! DealCell
             cell.delegate = self
@@ -119,20 +164,43 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("DistanceCell", forIndexPath: indexPath) as! DistanceCell
             cell.delegate = self
-            cell.distanceLabel!.text = distance[indexPath.row]
-            //cell.distanceImageView!.image = UIImage(named:"check")!
+            if (distanceExpand) {
+                cell.distanceLabel!.text = selectedDistance
+            } else {
+                cell.distanceLabel!.text = distance[indexPath.row]
+                // highlight selected distance
+                if distance[indexPath.row] == selectedDistance {
+                    cell.backgroundColor = UIColor.lightGrayColor();
+                }
+            }
             return cell
         } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCellWithIdentifier("SortCell", forIndexPath: indexPath) as! SortCell
             cell.delegate = self
-            cell.sortLabel!.text = sortBy[indexPath.row]
-            //cell.sortImageView!.image = UIImage(named:"check")!
+            if (sortbyExpand){
+                cell.sortLabel!.text = selectedSortby
+            } else {
+                cell.sortLabel!.text = sortBy[indexPath.row]
+                // highlight selected sortby
+                if sortBy[indexPath.row] == selectedSortby {
+                    cell.backgroundColor = UIColor.lightGrayColor();
+                }
+            }
             return cell
         }
-        // else
+        // else statement
         let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
         cell.delegate = self
+        
         cell.switchLabel.text = categories[indexPath.row]["name"]
+        
+        // get selected categories from memory
+        let code = categories[indexPath.row]["code"]!
+        if selectedCategories != nil {
+            if selectedCategories.contains(code) {
+                switchStates[indexPath.row] = true
+            }
+        }
         
         //equivalent: cell.onSwitch.on = switchStates[indexPath.row] ?? false
         if switchStates[indexPath.row] != nil {
@@ -140,24 +208,75 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         } else {
             cell.onSwitch.on = false
         }
+        
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 1 {
-            selectedDistance = distance[indexPath.row]
-            // uncheck every other row
+    func updateColor(indexPath: NSIndexPath) {
+        var numRows = 0
+        if indexPath.section == 1{
+            numRows = distance.count
         } else if indexPath.section == 2 {
-            selectedSortby = sortBy[indexPath.row]
-            // uncheck every other row
+            numRows = sortBy.count
         }
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        for row in 0 ... numRows - 1 {
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forItem: row, inSection: indexPath.section))
+            if (indexPath.row == row) {
+                cell!.backgroundColor = UIColor.lightGrayColor();
+            }  else {
+                cell!.backgroundColor = UIColor.whiteColor();
+            }
+        }
+    }
+    
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("table didSelectRowAtIndexPath")
+        tableView.beginUpdates()
+        if indexPath.section == 1 {
+            if (distanceExpand) {
+                distanceExpand = false
+                // show all rows
+                tableView.reloadData()
+                var distanceIndexPaths = [NSIndexPath]()
+                for index in 0...distance.count {
+                    distanceIndexPaths.append(NSIndexPath(forItem: index, inSection: 1))
+                }
+                tableView.reloadRowsAtIndexPaths(distanceIndexPaths, withRowAnimation: .Fade)
+            } else {
+                //distanceExpand = true
+                selectedDistance = distance[indexPath.row]
+                updateColor(indexPath)
+                // hide rows
+                //let deleteIndexPath = NSIndexPath(forItem: indexPath.row, inSection: indexPath.section)
+                //tableView.reloadRowsAtIndexPaths([deleteIndexPath], withRowAnimation: .Fade)
+            }
+        } else if indexPath.section == 2 {
+            if (sortbyExpand) {
+                sortbyExpand = false
+                // show all rows
+                var sortIndexPaths = [NSIndexPath]()
+                for index in 0...sortBy.count {
+                    sortIndexPaths.append(NSIndexPath(forItem: index, inSection: 2))
+                }
+                tableView.reloadRowsAtIndexPaths(sortIndexPaths, withRowAnimation: .Fade)
+            } else {
+                //sortbyExpand = true
+                selectedSortby = sortBy[indexPath.row]
+                updateColor(indexPath)
+                // hide rows
+                //let deleteIndexPath = NSIndexPath(forItem: indexPath.row, inSection: indexPath.section)
+                //tableView.reloadRowsAtIndexPaths([deleteIndexPath], withRowAnimation: .Fade)
+            }
+        }
+        tableView.endUpdates()
     }
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPathForCell(switchCell)!
         switchStates[indexPath.row] = value
         print("CATEGORIES: filters view controller got the switch event for Categories")
+        print(switchStates)
     }
     
     func dealCell(dealCell: DealCell, didChangeValue value: Bool) {

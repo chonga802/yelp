@@ -3,7 +3,7 @@
 //  Yelp
 //
 //  Created by Christine Hong on 2/14/16.
-//  Copyright © 2016 Timothy Lee. All rights reserved.
+//  Copyright © 2016 Christine Hong. All rights reserved.
 //
 
 import UIKit
@@ -16,7 +16,6 @@ class DistanceCell: UITableViewCell {
     
      weak var delegate: DistanceDelegate?
     @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var distanceImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
