@@ -19,12 +19,13 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
+        print("VIEW DID LOAD")
         super.viewDidLoad()
     
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.estimatedRowHeight = 120
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 400
+        // tableView.rowHeight = UITableViewAutomaticDimension
         
         searchBar.delegate = self
         searchBar.placeholder = "Restaurants"
@@ -36,20 +37,14 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     private func doSearch() {
+        print("do search")
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         
-        // Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
         Business.searchWithTerm("Restaurants", completion: { (businesses: [Business]!, error: NSError!) -> Void in
-            print("SEARCHING HI")
             self.businesses = businesses
             self.filteredBusinesses = self.businesses
             self.tableView.reloadData()
-            
-            for business in businesses {
-                print(business.name!)
-                print(business.address!)
-            }
-            
+
             MBProgressHUD.hideHUDForView(self.view, animated: true)
         })
     }
@@ -75,7 +70,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     // This method updates filteredBusinesses based on the text in the Search Box
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        print("USING SEARCH FILTER")
+        print("USING SEARCH BAR FILTER")
         // When there is no text, filteredBusinesses is the same as the original data
         if searchText.isEmpty {
             filteredBusinesses = businesses
@@ -120,12 +115,34 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func filtersViewController(filtersViewcontroller: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
-        
+        print("SEARCHING IN FILTERS VIEW CONTROLLER")
+        let dealOnly = filters["dealonly"] as? Bool
+        let distance = filters["distance"] as? String
+        let sortBy = filters["sortby"] as? String
         let categories = filters["categories"] as? [String]
         
-        Business.searchWithTerm("Restaurants", sort: nil, categories: categories, deals: nil) { (businesses: [Business]!, error: NSError!) -> Void in
-            print("SEARCHING IN FILTERS VIEW CONTROLLER")
-            self.businesses = businesses
+        var distanceChoice : Int?
+        if (distance == "0.3 miles") {
+            distanceChoice = 482
+        } else if (distance == "1 mile") {
+            distanceChoice = 1609
+        } else if (distance == "5 miles") {
+            distanceChoice = 8046
+        } else if (distance == "20 miles") {
+            distanceChoice = 32187
+        }
+        
+        var sortChoice : YelpSortMode?
+        if (sortBy == "Distance") {
+            sortChoice = .Distance
+        } else if sortBy == "Rating"{
+            sortChoice = .HighestRated
+        } else {
+            sortChoice = .BestMatched
+        }
+        
+        Business.searchWithTerm("Restaurants", distance: distanceChoice, sort: sortChoice, categories: categories, deals: dealOnly) { (businesses: [Business]!, error: NSError!) -> Void in
+            self.filteredBusinesses = businesses
             self.tableView.reloadData()
         }
     }

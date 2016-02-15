@@ -18,6 +18,7 @@ class Business: NSObject {
     let reviewCount: NSNumber?
     
     init(dictionary: NSDictionary) {
+        //print("INITING BUSINESS MODEL")
         name = dictionary["name"] as? String
         
         let imageURLString = dictionary["image_url"] as? String
@@ -88,7 +89,7 @@ class Business: NSObject {
         YelpClient.sharedInstance.searchWithTerm(term, completion: completion)
     }
     
-    class func searchWithTerm(term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, completion: ([Business]!, NSError!) -> Void) -> Void {
-        YelpClient.sharedInstance.searchWithTerm(term, sort: sort, categories: categories, deals: deals, completion: completion)
+    class func searchWithTerm(term: String, distance: Int?, sort: YelpSortMode?, categories: [String]?, deals: Bool?, completion: ([Business]!, NSError!) -> Void) -> Void {
+        YelpClient.sharedInstance.searchWithTerm(term, distance: distance, sort: sort, categories: categories, deals: deals, completion: completion)
     }
 }

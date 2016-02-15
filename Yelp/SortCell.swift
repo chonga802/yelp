@@ -8,11 +8,18 @@
 
 import UIKit
 
-class SortCell: UITableViewCell {
+@objc protocol SortCellDelegate {
+    optional func sortCell(dealCell: SortCell, didChangeValue value: Bool)
+}
 
+class SortCell: UITableViewCell {
+    
+    weak var delegate: SortCellDelegate?
+    @IBOutlet weak var sortImageView: UIImageView!
+    @IBOutlet weak var sortLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

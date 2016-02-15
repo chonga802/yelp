@@ -8,8 +8,16 @@
 
 import UIKit
 
-class DistanceCell: UITableViewCell {
+@objc protocol DistanceDelegate {
+    optional func distanceCell(distanceCell: DistanceCell, didChangeValue value: Bool)
+}
 
+class DistanceCell: UITableViewCell {
+    
+     weak var delegate: DistanceDelegate?
+    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var distanceImageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
